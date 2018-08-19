@@ -1,0 +1,7 @@
+{
+  "name": "Agreeadsweb",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,11 @@
+﻿<Products>
+  <Product>
+    <Name>Sonalika Tractor</Name>
+    <ID>1</ID>
+    <BasePic>https://5.imimg.com/data5/LU/MA/MY-29626625/designer-sonalika-tractor-500x500.jpg</BasePic>
+    <Description>This is best on if you have less than 5 hectore area</Description>
+    <Rank>1</Rank>
+    <Rating>3.4</Rating>
+    <PriceRange>2000K-2500K</PriceRange>
+  </Product>
+</Products>
