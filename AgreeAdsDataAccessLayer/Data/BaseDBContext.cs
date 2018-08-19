@@ -9,6 +9,7 @@ namespace AgreeAdsDataAccessLayer.Data
 {
     public class BaseDBContext<T> : DbContext where T : class
     {
+
         private DbSet<T> _dbset;
         public virtual DbSet<T> dbSet { get { return this._dbset; } private set { _dbset = this.Set<T>(); } }
         public BaseDBContext()
