@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 namespace AgreeAdsDataAccessLayer.Entity
 {
 
-    class BaseEquipmentSpecification
+    public class BaseEquipmentSpecification : IEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BaseEquipmentSpecificationID { set; get; }
         public string SKU { set; get; }
-        public string SpecificationType { set; get; }
+
+
+        
         public string SubType { set; get; }
         public string EngineType { set; get; }
         public string EnginePower { set; get; }
@@ -25,5 +27,28 @@ namespace AgreeAdsDataAccessLayer.Entity
         public string RPMSpeed { get; set; }
         public string Carburetor { get; set; }
         public string Ignition { set; get; }
+
+        [ForeignKey("EquipmentSpecificationTypeID")]
+        public EquipmentSpecificationType EquipmentSpecificationType { set; get; }
+
+        [Required]
+        [Index("IX_EquipmentSpecificationTypeID")]
+
+        public int? EquipmentSpecificationTypeID { set; get; }
+
+        [ForeignKey("EquipmentID")]
+        public Equipment Equipment { set; get; }
+
+        [Required]
+        [Index("IX_EquipmentID")]
+
+        public int? EquipmentID { set; get; }
+
+
+        [Required]
+        public DateTime TimeCreated { get; set; }
+
+        [Required]
+        public DateTime TimeUpdated { get; set; }
     }
 }

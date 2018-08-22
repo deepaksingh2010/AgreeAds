@@ -8,22 +8,24 @@ using System.Threading.Tasks;
 
 namespace AgreeAdsDataAccessLayer.Entity
 {
-    public class EquipmentSpecificationType : IEntity
+    public class Picture : IEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int EquipmentSpecificationTypeID { get; set; }
+        public int PictureID { get; set; }
 
         [Required]
-        [MaxLength(40)]
-        public string EquipmentSpecificationTypeName { get; set; }
+        [MaxLength(216)]
+        public string PrictureUrl { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        public string PictureDescription { get; set; }
 
         [Required]
         public DateTime TimeCreated { get; set; }
 
         [Required]
         public DateTime TimeUpdated { get; set; }
-
-        public IList<BaseEquipmentSpecification> BaseEquipmentSpecifications { get; set; }
 
     }
 }

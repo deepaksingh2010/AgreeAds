@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AgreeAdsDataAccessLayer.Entity
 {
+    [Table("Category")]
     public class Category:IEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,5 +23,6 @@ namespace AgreeAdsDataAccessLayer.Entity
 
         [Required]
         public DateTime TimeUpdated { get; set; }
+        public IList<Equipment> Equipments { get; set; }
     }
 }

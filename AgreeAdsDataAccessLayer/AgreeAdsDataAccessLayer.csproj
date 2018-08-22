@@ -54,21 +54,26 @@
     <Compile Include="DataAccess\GenericRepository.cs" />
     <Compile Include="DataAccess\IGenericRepository.cs" />
     <Compile Include="Data\BaseDBContext.cs" />
+    <Compile Include="Data\BaseEquipmentSpecificationContext.cs" />
     <Compile Include="Data\CategoryContext.cs" />
     <Compile Include="Data\ContextFactory.cs" />
     <Compile Include="Data\EquipmentContext.cs" />
+    <Compile Include="Data\EquipmentSpecificationTypeContext.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Data\ManuFactureContext.cs" />
+    <Compile Include="Data\PictureContext.cs" />
+    <Compile Include="Data\RatingContext.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
+    <Compile Include="Data\VideoContext.cs" />
     <Compile Include="Entity\BaseEquipmentSpecification.cs" />
     <Compile Include="Entity\Category.cs" />
     <Compile Include="Entity\Equipment.cs" />
     <Compile Include="Entity\EquipmentSpecificationType.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\ManuFacturer.cs" />
-    <Compile Include="Entity\Pictures.cs" />
+    <Compile Include="Entity\Picture.cs" />
     <Compile Include="Entity\Rating.cs" />
-    <Compile Include="Entity\Videos.cs" />
+    <Compile Include="Entity\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

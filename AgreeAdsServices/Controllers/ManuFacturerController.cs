@@ -10,87 +10,26 @@ using System.Web.Http;
 
 namespace AgreeAdsServices.Controllers
 {
-    public class ManuFacturerController : ApiController
+    public class ManuFacturerController : BaseController<ManuFacturer>
     {
-        private IUnitOfWork unitOfWork;
-        private GenericRepository<ManuFacturer> manuFacturerRepository;
-        HttpResponseMessage httpResponseMessage = null;
-        public ManuFacturerController()
+        public ManuFacturerController() : base()
         {
-            unitOfWork = ContextFactory.CreateContext(typeof(ManuFacturer));
-            manuFacturerRepository = unitOfWork.Repository<ManuFacturer>();
-        }
-        [HttpGet]
-        public HttpResponseMessage GetManuFacturerByID(int id)
-        {
-
-            ManuFacturer manuFacturer = manuFacturerRepository.GetById(id);
-            if (manuFacturer != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, manuFacturer);
-            }
-            else
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-
-            }
-            return httpResponseMessage;
-        }
-        [HttpGet]
-        public HttpResponseMessage GetManuFacturer()
-        {
-
-            IEnumerable<ManuFacturer> manuFacturers = manuFacturerRepository.GetAll();
-            if (manuFacturers != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, manuFacturers);
-            }
-            else
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-
-            }
-            return httpResponseMessage;
         }
         [HttpPost]
-        public HttpResponseMessage AddCategory([FromBody]ManuFacturer manuFacturer)
+        public override HttpResponseMessage AddEntity([FromBody] ManuFacturer entity)
         {
-            manuFacturer.TimeCreated = DateTime.Now;
-            manuFacturer.TimeUpdated = DateTime.Now;
-            ManuFacturer _manuFacturer = manuFacturerRepository.Insert(manuFacturer);
-            if (_manuFacturer != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, _manuFacturer);
-                httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (_manuFacturer.ManuFacturerID).ToString());
-            }
-            else
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-            }
-            return httpResponseMessage;
+            entity.TimeCreated = DateTime.Now;
+            entity.TimeUpdated = DateTime.Now;
+            HttpResponseMessage response = base.AddEntity(entity);
+            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.ManuFacturerID).ToString());
+            return response;
         }
-        [HttpPut]
-        public HttpResponseMessage UpdateCategory([FromBody]ManuFacturer manuFacturer)
+        [HttpPost]
+        protected override HttpResponseMessage UpdateEntity([FromBody] ManuFacturer entity)
         {
-            ManuFacturer _manuFacturer = manuFacturerRepository.Update(manuFacturer);
-            if (_manuFacturer != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, _manuFacturer);
-                httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (manuFacturer.ManuFacturerID).ToString());
-            }
-            else
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-            }
-            return httpResponseMessage; ;
-        }
-        [HttpDelete]
-        public HttpResponseMessage DeleteCategory(int id)
-        {
-            manuFacturerRepository.Delete(id);
-            manuFacturerRepository.Save();
-            HttpResponseMessage ms = Request.CreateResponse(HttpStatusCode.Accepted);
-            return ms;
+            HttpResponseMessage response = base.UpdateEntity(entity);
+            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.ManuFacturerID).ToString());
+            return response;
         }
     }
 }

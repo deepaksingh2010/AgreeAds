@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AgreeAdsDataAccessLayer.Entity
 {
+    [Table("Equipment")]
     public class Equipment:IEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -28,14 +29,21 @@ namespace AgreeAdsDataAccessLayer.Entity
         [Required]
         [MaxLength(100)]
         public string EquipmentPriceRange { get; set; }
+        
+        [Index("IX_Rank")]
+        public int Rank { get; set; }
 
-        [Required]
-        [MaxLength(200)]
-        public string EquipmentVideo { get; set; }
+
+        [ForeignKey("CategoryID")]
+        public Category Category { set; get; }
 
         [Required]
         [Index("IX_CategoryID")]
         public int? CategoryID { get; set; }
+
+
+        [ForeignKey("ManuFacturerID")]
+        public ManuFacturer ManuFacturer { set; get; }
 
         [Required]
         [Index("IX_ManuFacturerID")]
@@ -46,5 +54,11 @@ namespace AgreeAdsDataAccessLayer.Entity
 
         [Required]
         public DateTime TimeUpdated { get; set; }
+
+        public IList<BaseEquipmentSpecification> BaseEquipmentSpecifications { set; get; }
+
+        public IList<Picture> Pictures { set; get; }
+        public IList<Video> Videos { set; get; }
+        public IList<Rating> Ratings { set; get; }
     }
 }

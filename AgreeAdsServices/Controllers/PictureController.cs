@@ -10,25 +10,25 @@ using System.Web.Http;
 
 namespace AgreeAdsServices.Controllers
 {
-    public class EquipmentController : BaseController<Equipment>
+    public class PictureController : BaseController<Picture>
     {
-        public EquipmentController() : base()
+        public PictureController() :base()
         {
         }
         [HttpPost]
-        public override HttpResponseMessage AddEntity([FromBody] Equipment entity)
+        public override HttpResponseMessage AddEntity([FromBody] Picture entity)
         {
             entity.TimeCreated = DateTime.Now;
             entity.TimeUpdated = DateTime.Now;
             HttpResponseMessage response = base.AddEntity(entity);
-            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.EquipmentID).ToString());
+            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.PictureID).ToString());
             return response;
         }
         [HttpPost]
-        protected override HttpResponseMessage UpdateEntity([FromBody] Equipment entity)
+        protected override HttpResponseMessage UpdateEntity([FromBody] Picture entity)
         {
             HttpResponseMessage response = base.UpdateEntity(entity);
-            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.EquipmentID).ToString());
+            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.PictureID).ToString());
             return response;
         }
     }

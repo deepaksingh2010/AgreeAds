@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace AgreeAdsDataAccessLayer.Entity
 {
-    public class EquipmentSpecificationType : IEntity
+    public class Video:IEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int EquipmentSpecificationTypeID { get; set; }
+        public int VideoID { get; set; }
+        [Required]
+        [MaxLength(216)]
+        public string VideoUrl { get; set; }
 
         [Required]
-        [MaxLength(40)]
-        public string EquipmentSpecificationTypeName { get; set; }
+        [MaxLength(200)]
+        public string VideoDescription { get; set; }
 
         [Required]
         public DateTime TimeCreated { get; set; }
 
         [Required]
         public DateTime TimeUpdated { get; set; }
-
-        public IList<BaseEquipmentSpecification> BaseEquipmentSpecifications { get; set; }
-
     }
 }

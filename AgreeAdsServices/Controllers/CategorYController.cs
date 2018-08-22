@@ -11,86 +11,26 @@ using System.Web.Http;
 
 namespace AgreeAdsServices.Controllers
 {
-    public class CategoryController : ApiController
+    public class CategoryController : BaseController<Category>
     {
-        private IUnitOfWork unitOfWork;
-        private GenericRepository<Category> categoryRepository;
-        HttpResponseMessage httpResponseMessage = null;
-        public CategoryController()
+        public CategoryController() : base()
         {
-            unitOfWork = ContextFactory.CreateContext(typeof(Category));
-            categoryRepository = unitOfWork.Repository<Category>();
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetCategoryByID(int id)
-        {
-
-            Category category = categoryRepository.GetById(id);
-            if (category != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, category);
-            }
-            else
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-
-            }
-            return httpResponseMessage;
-        }
-        [HttpGet]
-        public HttpResponseMessage GetCategories()
-        {
-
-            IEnumerable<Category> categories = categoryRepository.GetAll();
-            if (categories != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, categories);
-            }
-            else{
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-
-            }
-            return httpResponseMessage;
         }
         [HttpPost]
-        public HttpResponseMessage AddCategory([FromBody]Category category)
+        public override HttpResponseMessage AddEntity([FromBody] Category entity)
         {
-            category.TimeCreated = DateTime.Now;
-            category.TimeUpdated = DateTime.Now;
-            Category _category = categoryRepository.Insert(category);
-            if (_category != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, _category);
-                httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (_category.CategoryID).ToString());
-            }
-            else
-            {
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-            }
-            return httpResponseMessage;
+            entity.TimeCreated = DateTime.Now;
+            entity.TimeUpdated = DateTime.Now;
+            HttpResponseMessage response = base.AddEntity(entity);
+            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.CategoryID).ToString());
+            return response;
         }
-        [HttpPut]
-        public HttpResponseMessage UpdateCategory([FromBody]Category category)
+        [HttpPost]
+        protected override HttpResponseMessage UpdateEntity([FromBody] Category entity)
         {
-            Category _category = categoryRepository.Update(category);
-            if (_category != null)
-            {
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, _category);
-                httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (_category.CategoryID).ToString());
-            }
-            else{
-                httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.NotFound, "Item not found");
-            }
-            return httpResponseMessage; ;
-        }
-        [HttpDelete]
-        public HttpResponseMessage DeleteCategory(int id)
-        {
-            categoryRepository.Delete(id);
-            categoryRepository.Save();
-            HttpResponseMessage ms = Request.CreateResponse(HttpStatusCode.Accepted);
-            return ms;
+            HttpResponseMessage response = base.UpdateEntity(entity);
+            httpResponseMessage.Headers.Location = new Uri(Request.RequestUri + "/" + (entity.CategoryID).ToString());
+            return response;
         }
     }
 }
